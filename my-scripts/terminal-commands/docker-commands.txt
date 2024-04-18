@@ -19,8 +19,8 @@ docker-compose -f docker-compose.local-staging.yml up -d
 docker run -d \
   --name bbdevcom-mysql \
   -p 23306:3306 \
-  -e MYSQL_ROOT_PASSWORD=ydot689 \
-  -e MYSQL_DATABASE=ydotcom \
-  -e MYSQL_USER=theuser \
-  -e MYSQL_PASSWORD=ydot689 \
+  -e MYSQL_ROOT_PASSWORD=abc \
+  -e MYSQL_DATABASE=abc \
+  -e MYSQL_USER=abc \
+  -e MYSQL_PASSWORD=abc \
   mysql:5.7
