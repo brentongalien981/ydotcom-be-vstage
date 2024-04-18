@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:5.7  
+    restart: always     
+    env_file:
+      - .env     
+    ports:
+      - "23306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql 
+
+  redis:
+    image: redis:alpine3.19    
+    env_file:
+      - .env
+    ports:
+      - "26379:6379"
+
+  backend:
+    build:
+      context: .
+      dockerfile: ./dockerfiles/node.dockerfile
+    ports:
+      - "23000:80"
+    env_file:
+      - .env
+    depends_on:
+      - mysql
+      - redis
+    command: sh -c "sleep 20 && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:undo:all && npx sequelize-cli db:seed:all && npm start"        
+
+
+volumes:
+  mysql_data:  # Define the mysql_data volume here

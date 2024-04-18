@@ -1,0 +1,26 @@
+// Using docker version
+Docker version 24.0.5, build 24.0.5-0ubuntu1~22.04.1
+
+
+// Run a MySQL container.
+docker run -d --name mysql-container -e MYSQL_ROOT_PASSWORD=myrootpassword -e MYSQL_USER=myuser -e MYSQL_PASSWORD=mypassword -e MYSQL_DATABASE=mydatabase -p 3306:3306 mysql:5.7
+docker run -d --name my-mysql -e MYSQL_ROOT_PASSWORD=abc -e MYSQL_USER=abc -e MYSQL_PASSWORD=abc -e MYSQL_DATABASE=ydotcom -p 3306:3306 mysql:5.7
+
+
+// WARNING: Teardown Docker Compose stack
+docker-compose -f docker-compose.local-staging.yml down -v
+
+
+// Docker Compose
+docker-compose -f docker-compose.local-staging.yml up -d
+
+
+// Run mysql
+docker run -d \
+  --name bbdevcom-mysql \
+  -p 23306:3306 \
+  -e MYSQL_ROOT_PASSWORD=ydot689 \
+  -e MYSQL_DATABASE=ydotcom \
+  -e MYSQL_USER=theuser \
+  -e MYSQL_PASSWORD=ydot689 \
+  mysql:5.7
