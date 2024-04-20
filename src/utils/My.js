@@ -28,6 +28,14 @@ class My {
   static generateUuid() {
     return uuidv4();
   }
+
+
+  static getRandomNumber(min, max) {
+    // Math.random() generates a number between 0 (inclusive) and 1 (exclusive)
+    // Multiply by (max - min + 1) to include the maximum value in the range
+    // Math.floor() rounds down to the nearest integer
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
 }
 
 

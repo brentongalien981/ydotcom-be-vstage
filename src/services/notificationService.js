@@ -21,6 +21,20 @@ const notificationService = {
     
     return notification;
 
+  },
+
+
+  queryNumOfUnreadNotifications: async (user) => {
+
+    const unreadNotificationsForUser = await db.Notification.findAll({
+      where: {
+        userId: user.id,
+        isRead: 0
+      }
+    });
+
+    return unreadNotificationsForUser.length;
+
   }
 
 };
