@@ -11,7 +11,7 @@ require("./src/models");
 const homeRoutes = require("./src/routes/homeRoutes");
 const authRoutes = require("./src/routes/authRoutes");
 const postsRoutes = require("./src/routes/postRoutes");
-const muxHooksRoutes = require("./src/routes/muxHooksRoutes");
+const bbdevcomVideoHooksRoutes = require("./src/routes/bbdevcomVideoHooksRoutes");
 const notificationRoutes = require("./src/routes/notificationRoutes");
 const notificationManagerRoutes = require("./src/routes/notificationManagerRoutes");
 
@@ -44,7 +44,7 @@ NotificationManagerSocketio.handleConnection(server);
 app.use("/", homeRoutes);
 app.use("/auth", authRoutes);
 app.use("/posts", postsRoutes);
-app.use("/muxHooks", muxHooksRoutes);
+app.use("/bbdevcomVideoHooks", bbdevcomVideoHooksRoutes);
 app.use("/notifications", notificationRoutes);
 app.use("/notificationManager", notificationManagerRoutes);
 
