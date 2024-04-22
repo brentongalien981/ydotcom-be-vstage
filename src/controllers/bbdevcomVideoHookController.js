@@ -4,14 +4,14 @@ const videoService = require("../services/videoService");
 const NotificationManagerSocketio = require("../utils/NotificationManagerSocketio");
 
 
-const muxController = {
+const bbdevcomVideoController = {
 
   onVideoReady: async (req, res, next) => {
 
     try {
-      const muxHookType = req.body.type;
+      const bbdevcomVideoHookType = req.body.type;
 
-      if (muxHookType === "video.asset.ready") {
+      if (bbdevcomVideoHookType === "video.asset.ready") {
 
         // Update video db record.
         const video = await videoService.handleOnVideoReady(req);
@@ -27,9 +27,9 @@ const muxController = {
       }
 
 
-      // Respond 200 to mux hook-event-sender.
+      // Respond 200 to bbdevcomVideo hook-event-sender.
       res.status(200).json({
-        msg: "Request OK for mux-hook-event: onVideoReady()"
+        msg: "Request OK for bbdevcomVideo-hook-event: onVideoReady()"
       });
     } catch (e) {
       return next(e);
@@ -40,4 +40,4 @@ const muxController = {
 };
 
 
-module.exports = muxController;
+module.exports = bbdevcomVideoController;

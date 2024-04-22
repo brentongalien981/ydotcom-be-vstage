@@ -35,6 +35,15 @@ const notificationService = {
 
     return unreadNotificationsForUser.length;
 
+  },
+
+
+  readNotifications: async (user) => {
+
+    return await user.getNotifications({
+      order: [["createdAt", "DESC"]]
+    });
+
   }
 
 };

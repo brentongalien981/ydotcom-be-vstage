@@ -73,4 +73,32 @@ describe("Integration / Services / notificationService", () => {
   });
 
 
+  describe("notificationService.readNotifications", () => {
+
+    it("should read notifications", async () => {
+
+      // Mock stuffs.
+      const mockUser1 = await generateUser();
+      const mockUser2 = await generateUser();
+      const mockNotificationsOfUser1 = await generateNotificationsForUser(mockUser1, 10);
+      const mockNotificationsOfUser2 = await generateNotificationsForUser(mockUser2, 10);
+
+
+      // Call the service.
+      const queriedNotificationsOfUser1 = await notificationService.readNotifications(mockUser1);
+
+
+      // Query for other notifications data.
+      const allNotifications = await db.Notification.findAll();      
+
+
+      // Expect
+      expect(queriedNotificationsOfUser1.length).to.equal(10);
+      expect(allNotifications.length).to.equal(20);
+
+    });
+
+  });
+
+
 });

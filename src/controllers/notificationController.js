@@ -18,11 +18,13 @@ const notificationController = {
     await My.sleep();
     
     try {
-      throw new Error("chamba chambang error");
+
+      const user = req.authUser;
+      const notifications = await notificationService.readNotifications(user);
 
       res.json({
         msg: "Request OK for GET route: /notifications",
-        notifications: []
+        notifications: notifications
       });
     } catch (e) {
       return next(e);
