@@ -6,6 +6,7 @@ const notificationController = require("../controllers/notificationController");
 const router = express.Router();
 
 
+router.get("/", authMiddleware.isLoggedIn, notificationController.readNotifications);
 router.post("/queryNumOfUnreadNotifications", authMiddleware.isLoggedIn, notificationController.queryNumOfUnreadNotifications);
 
 
