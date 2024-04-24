@@ -14,8 +14,6 @@ const notificationController = {
   },
 
   readNotifications: async (req, res, next) => {
-    // TODO: Delete
-    await My.sleep();
     
     try {
 
