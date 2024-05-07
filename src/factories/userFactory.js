@@ -10,7 +10,7 @@ async function hashPassword(password) {
 
   // Generate bcryptjs salt with 10 rounds.
   const salt = await bcryptjs.genSalt(10);
-  
+
   const hashedPassword = await bcryptjs.hash(password, salt);
 
   return hashedPassword;
@@ -53,10 +53,23 @@ async function generateUser() {
 }
 
 
+async function generateUsers(numUsers = 1) {
+  const users = [];
+  for (let i = 0; i < numUsers; i++) {
+    const userAttribs = await generateUserAttribsWithoutId();
+    const user = await db.User.create(userAttribs);
+    users.push(user);
+
+  }
+  return users;
+}
+
+
 module.exports = {
   hashPassword,
   generateUserAttribs,
   generateUserAttribsWithoutId,
   generateHashedPassword,
-  generateUser
+  generateUser,
+  generateUsers
 };

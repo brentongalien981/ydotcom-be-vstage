@@ -3,7 +3,6 @@ require("dotenv").config();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const http = require("http");
-// const https = require("https");
 require("./src/models");
 
 
@@ -11,6 +10,7 @@ require("./src/models");
 const homeRoutes = require("./src/routes/homeRoutes");
 const authRoutes = require("./src/routes/authRoutes");
 const postsRoutes = require("./src/routes/postRoutes");
+const profileRoutes = require("./src/routes/profileRoutes");
 const bbdevcomVideoHooksRoutes = require("./src/routes/bbdevcomVideoHooksRoutes");
 const notificationRoutes = require("./src/routes/notificationRoutes");
 const notificationManagerRoutes = require("./src/routes/notificationManagerRoutes");
@@ -23,7 +23,7 @@ const NotificationManagerSocketio = require("./src/utils/NotificationManagerSock
 
 const app = express();
 const server = http.createServer(app);
-// const server = https.createServer(app);
+
 
 
 // Set middlewares.
@@ -44,12 +44,13 @@ NotificationManagerSocketio.handleConnection(server);
 app.use("/", homeRoutes);
 app.use("/auth", authRoutes);
 app.use("/posts", postsRoutes);
+app.use("/profile", profileRoutes);
 app.use("/bbdevcomVideoHooks", bbdevcomVideoHooksRoutes);
 app.use("/notifications", notificationRoutes);
 app.use("/notificationManager", notificationManagerRoutes);
 
 
-// Set default error handler middleware.
+// Set default error handler middlewares.
 app.use(notFoundErrorHandlerMiddleware);
 app.use(errorHandlerMiddleware);
 
