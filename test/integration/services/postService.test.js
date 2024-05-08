@@ -5,6 +5,7 @@ const My = require("../../../src/utils/My");
 const { generatePostAttribs } = require("../../../src/factories/postFactory");
 const { generateVideoAttribs } = require("../../../src/factories/videoFactory");
 const postService = require("../../../src/services/postService");
+const { generateProfileForUser } = require("../../../src/factories/profileFactory");
 
 
 describe("Integration / Services / postService", () => {
@@ -16,6 +17,12 @@ describe("Integration / Services / postService", () => {
       // Create 10 fake posts.
       const fakePostsAttribs = await generatePostAttribs(10);
       const fakePosts = await db.Post.bulkCreate(fakePostsAttribs);
+
+      // Generate fake profile for the created 10 users.
+      const allUsers = await db.User.findAll();
+      for (const u of allUsers) {
+        await generateProfileForUser(u);
+      }
 
       // Create 10 fake videos with 1 to 1 relationship with the fake videos.
       const fakeVideosAttribs = generateVideoAttribs(fakePosts);
@@ -46,7 +53,9 @@ describe("Integration / Services / postService", () => {
         expect(p.user.username).not.to.be.undefined;
         expect(p.video.id).to.equal(videosForThePost[0].id);
         expect(p.video.bbdevcomVideoAssetId).not.to.be.undefined;
-        expect(p.video.bbdevcomVideoPlaybackId).not.to.be.undefined;
+        expect(p.video.bbdevcomVideoPlaybackId).not.to.be.undefined;        
+
+        expect(p.userProfile.photoSource).not.to.be.undefined;
       }
 
     });
