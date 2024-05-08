@@ -10,7 +10,11 @@ const profileService = {
       throw new Error("User not found.");
     }
 
-    return await user.getProfile();
+    let profile = await user.getProfile();
+    profile = profile.toJSON();
+    profile.username = user.username;
+    profile.email = user.email;
+    return profile;
 
   }
 
