@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { User } = require("../models");
+const { User, Profile } = require("../models");
 
 const AuthenticationError = require("../errors/AuthenticationError");
 const My = require("../utils/My");
@@ -28,7 +28,9 @@ const authService = {
 
   login: async (req) => {
 
-    const user = await User.findOne({ where: { email: req.body.email } });
+    let user = await User.findOne({ 
+      where: { email: req.body.email }
+    });
 
     if (user) {
       const isPasswordValid = await bcrypt.compare(req.body.password, user.password);
@@ -36,6 +38,13 @@ const authService = {
       if (isPasswordValid) {
         // Generate JWT token.
         const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: "7d" });
+
+        // Add extra attribs to user.
+        const userProfile = await user.getProfile();
+        user = user.toJSON();
+        user.profile = {
+          photoSource: userProfile?.photoSource
+        };
 
         return { user, token };
       }

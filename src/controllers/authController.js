@@ -61,7 +61,8 @@ const authController = {
         msg: "Request OK for route /auth/login",
         theMethod: "POST",
         token: loginData.token,
-        username: loginData.user.username
+        username: loginData.user.username,
+        profilePhotoSource: loginData.user.profile.photoSource
       });
 
     } catch (e) {
