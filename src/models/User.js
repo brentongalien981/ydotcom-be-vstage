@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -14,6 +12,20 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Notification, { foreignKey: "userId" });
 
       User.hasOne(models.Profile, { foreignKey: "userId" });
+
+      User.belongsToMany(models.User, {
+        through: models.UserRelationship,
+        as: "Followers",
+        foreignKey: "followingUserId",
+        otherKey: "followerUserId"
+      });
+
+      User.belongsToMany(models.User, {
+        through: models.UserRelationship,
+        as: "Followings",
+        foreignKey: "followerUserId",
+        otherKey: "followingUserId"
+      });
 
     }
   }
