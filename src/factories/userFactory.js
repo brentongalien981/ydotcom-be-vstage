@@ -2,6 +2,7 @@ const { faker } = require("@faker-js/faker");
 const bcryptjs = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
 const db = require("../models");
+const jwt = require("jsonwebtoken");
 
 
 
@@ -53,6 +54,16 @@ async function generateUser() {
 }
 
 
+async function generateAuthUser() {
+
+  const user = await generateUser();
+  // Generate JWT token.
+  const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: "7d" });
+
+  return { user, token };
+}
+
+
 async function generateUsers(numUsers = 1) {
   const users = [];
   for (let i = 0; i < numUsers; i++) {
@@ -71,5 +82,6 @@ module.exports = {
   generateUserAttribsWithoutId,
   generateHashedPassword,
   generateUser,
-  generateUsers
+  generateUsers,
+  generateAuthUser
 };

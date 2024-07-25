@@ -1,15 +1,15 @@
-const app = require("../app.js");
+let server = require("../app.js");
 const db = require("../src/models");
 const My = require("../src/utils/My");
 const sequelize = db.sequelize;
 
 
-let server;
+// let server;
 
 
 before(async () => {
 
-  server = app.listen(0, () => { });
+  server.listen(0, () => { });
   await sequelize.sync({ force: true });
 });
 
@@ -32,3 +32,6 @@ afterEach(async () => {
   }
 
 });
+
+
+module.exports = server;

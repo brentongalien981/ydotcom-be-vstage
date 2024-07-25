@@ -11,9 +11,10 @@ const homeRoutes = require("./src/routes/homeRoutes");
 const authRoutes = require("./src/routes/authRoutes");
 const postsRoutes = require("./src/routes/postRoutes");
 const profilesRoutes = require("./src/routes/profilesRoutes");
-const bbdevcomVideoHooksRoutes = require("./src/routes/bbdevcomVideoHooksRoutes");
+const muxHooksRoutes = require("./src/routes/muxHooksRoutes");
 const notificationRoutes = require("./src/routes/notificationRoutes");
 const notificationManagerRoutes = require("./src/routes/notificationManagerRoutes");
+const userRelationshipRoutes = require("./src/routes/userRelationshipRoutes");
 
 const errorHandlerMiddleware = require("./src/middlewares/errorHandlerMiddleware");
 const notFoundErrorHandlerMiddleware = require("./src/middlewares/notFoundErrorHandlerMiddleware");
@@ -45,9 +46,10 @@ app.use("/", homeRoutes);
 app.use("/auth", authRoutes);
 app.use("/posts", postsRoutes);
 app.use("/profiles", profilesRoutes);
-app.use("/bbdevcomVideoHooks", bbdevcomVideoHooksRoutes);
+app.use("/muxHooks", muxHooksRoutes);
 app.use("/notifications", notificationRoutes);
 app.use("/notificationManager", notificationManagerRoutes);
+app.use("/userRelationships", userRelationshipRoutes);
 
 
 // Set default error handler middlewares.
@@ -64,4 +66,4 @@ if (process.env.NODE_ENV !== "test") {
 }
 
 
-module.exports = app;
+module.exports = server;
