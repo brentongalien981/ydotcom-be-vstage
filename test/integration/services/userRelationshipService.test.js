@@ -1,7 +1,7 @@
 require("../../test-env-bootstrap");
 const { expect } = require("chai");
 const db = require("../../../src/models");
-const { generateUser, generateUsers } = require("../../../src/factories/userFactory");
+const { generateUser, generateUsers, generateAuthUser } = require("../../../src/factories/userFactory");
 const userRelationshipService = require("../../../src/services/userRelationshipService");
 const My = require("../../../src/utils/My");
 
@@ -50,6 +50,43 @@ describe("Integration / Services / userRelationshipService", () => {
         expect(relationship.followerUserId).equal(sourceUser.id);
         expect(relationship.followingUserId).to.be.oneOf(followedUsersIds);
       }
+
+    });
+
+  });
+
+
+  describe("userRelationshipService.isUserFollowingUser", () => {
+
+    it("should return false if a user is not following another user", async () => {
+
+      // Generate users.
+      const user = await generateUser();
+      const userNotBeingFollowed = await generateUser();
+
+      // Call the service
+      const isFollowing = await userRelationshipService.isUserFollowingUser(user.id, userNotBeingFollowed.id);
+
+      // Expect
+      expect(isFollowing).to.be.false;
+
+    });
+
+
+    it("should return true if a user is following another user", async () => {
+
+      // Generate users.
+      const user = await generateUser();
+      const userBeingFollowed = await generateUser();
+
+      // Follow the userBeingFollowed.
+      await userBeingFollowed.addFollowers(user);
+
+      // Call the service
+      const isFollowing = await userRelationshipService.isUserFollowingUser(user.id, userBeingFollowed.id);
+
+      // Expect
+      expect(isFollowing).to.be.true;
 
     });
 

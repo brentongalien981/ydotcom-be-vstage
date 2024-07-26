@@ -36,5 +36,4 @@ describe("Integration / Services / profileService", () => {
 
   });
 
-
 });

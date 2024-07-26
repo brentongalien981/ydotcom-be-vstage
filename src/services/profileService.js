@@ -16,7 +16,7 @@ const profileService = {
     profile.email = user.email;
     return profile;
 
-  }
+  },
 
 };
 
