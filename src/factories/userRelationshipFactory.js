@@ -12,7 +12,7 @@ function generateRandomUserRelationships(users) {
     const numOfFollowers = My.getRandomNumber(0, maxNumOfFollowers + 1);
 
     // Create an array of user ids that are already being followed by the user for checking.
-    // Initialized it with the user being followed so that the user will not follow itself.
+    // Initialize it with the user being followed so that the user will not follow itself.
     const userIdsBeingFollowedByUser = [userBeingFollowed.id];
 
     for (let i = 0; i < numOfFollowers; i++) {
