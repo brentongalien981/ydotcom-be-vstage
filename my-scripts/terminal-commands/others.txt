@@ -1,6 +1,9 @@
   # Run just individual test case.
   npm test -- -g "should set req.isLoggedIn to false if no token is provided"
 
+  # Run just 1 test file.
+  npm test test/integration/TEST_FILE_NAME.test.js
+
 
   // Find and Replace regex.
   import

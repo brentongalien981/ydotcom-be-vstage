@@ -15,6 +15,7 @@ const muxHooksRoutes = require("./src/routes/muxHooksRoutes");
 const notificationRoutes = require("./src/routes/notificationRoutes");
 const notificationManagerRoutes = require("./src/routes/notificationManagerRoutes");
 const userRelationshipRoutes = require("./src/routes/userRelationshipRoutes");
+const recommendedUsersRoutes = require("./src/routes/recommendedUsersRoutes");
 
 const errorHandlerMiddleware = require("./src/middlewares/errorHandlerMiddleware");
 const notFoundErrorHandlerMiddleware = require("./src/middlewares/notFoundErrorHandlerMiddleware");
@@ -50,6 +51,7 @@ app.use("/muxHooks", muxHooksRoutes);
 app.use("/notifications", notificationRoutes);
 app.use("/notificationManager", notificationManagerRoutes);
 app.use("/userRelationships", userRelationshipRoutes);
+app.use("/recommendedUsers", recommendedUsersRoutes);
 
 
 // Set default error handler middlewares.
