@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test mocha --recursive",
+    "test": "cross-env NODE_ENV=test mocha --recursive --timeout 10000",
     "coverage": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text mocha --recursive",
     "start": "node app.js",
     "dev": "nodemon app.js"

@@ -21,19 +21,29 @@ const recommendedUsersService = {
 
     // Query users from db by random order. 
     // Exclude the users that authUser is already following.
-    // Only include the users username and exclude the rest of their properties.
-    // Convert the query result to an array of plain objects.
-    const users = await db.User.findAll({
+    // Only include the users username and exclude the rest of their properties.    
+    let users = await db.User.findAll({
       where: {
         id: {
           [db.Sequelize.Op.notIn]: followingIds
         }
       },
+      // Join users with their profiles to include their photoSource.
+      include: {
+        model: db.Profile,
+        attributes: ["photoSource"]
+      },
       order: db.sequelize.random(),
       attributes: ["username"],
-      limit: 10,
-      raw: true
+      limit: 10            
     });
+
+    // Convert the users to an array of plain objects.
+    users = users.map(u => u.toJSON());
+
+
+
+
 
     return users;
   }
