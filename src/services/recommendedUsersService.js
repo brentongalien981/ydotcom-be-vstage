@@ -34,12 +34,18 @@ const recommendedUsersService = {
         attributes: ["photoSource"]
       },
       order: db.sequelize.random(),
-      attributes: ["username"],
+      attributes: ["id", "username"],
       limit: 10            
     });
 
     // Convert the users to an array of plain objects.
-    users = users.map(u => u.toJSON());
+    users = users.map((u) => {
+      return {
+        ...u.toJSON(),
+        isAuthFollowingTheUser: false        
+      };
+    });
+    
 
 
 

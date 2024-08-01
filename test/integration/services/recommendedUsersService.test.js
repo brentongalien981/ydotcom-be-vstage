@@ -31,19 +31,16 @@ describe("Integration / Services / recommendedUsersService", () => {
       // Query the db for details to be used to assert.
       const numAllDbUsers = await db.User.count();
 
-
       // Assert
       expect(numAllDbUsers).equals(20);
       expect(users.length).equals(10);
 
       // Assert for the attribs of each user.
       for (const u of users) {
-        // Assert that each user has a username attrib.
         expect(u).to.have.property("username");
-        // Assert that each user has a profile.photoSource attrib.
+        expect(u).to.have.property("id");
+        expect(u.isAuthFollowingTheUser).to.be.false;
         expect(u.Profile.photoSource).to.exist;
-        // Assert that the userId attrib of users is not present.
-        expect(u).to.not.have.property("id");
       }
     });
 

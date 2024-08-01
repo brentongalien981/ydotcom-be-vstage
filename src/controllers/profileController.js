@@ -10,16 +10,16 @@ const profileController = {
       const { username } = req.params;
       const profile = await profileService.readProfile(username);
 
-      let isAuthFollowingTheUser = false;
+      // Dynamically add a property to the profile object.
+      profile.isAuthFollowingTheUser = false;
       if (req.isLoggedIn) {
-        isAuthFollowingTheUser = await userRelationshipService.isUserFollowingUser(req.authUser.id, profile.userId);
+        profile.isAuthFollowingTheUser = await userRelationshipService.isUserFollowingUser(req.authUser.id, profile.userId);
       }
 
 
       res.json({
         msg: "Request OK for get route: /profile/:username",
-        profile,
-        isAuthFollowingTheUser
+        profile
       });
 
     } catch (e) {

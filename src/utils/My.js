@@ -20,6 +20,11 @@ class My {
   }
 
 
+  static logDividers() {
+    console.log("\n\n\n############################################");
+  }
+
+
   static sleep(ms = 1000) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
